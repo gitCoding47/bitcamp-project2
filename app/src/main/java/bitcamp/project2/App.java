@@ -8,11 +8,17 @@ import bitcamp.project2.util.Prompt;
 import bitcamp.project2.vo.AccountBook;
 
 public class App {
+    private AccountBook accountBook = new AccountBook();
+
+    AppendBoard appendBoard = new AppendBoard(accountBook);
+    ViewBoard viewBoard = new ViewBoard(accountBook);
+    DeleteBoard deleteBoard = new DeleteBoard(accountBook);
+    ChangeBoard changeBoard = new ChangeBoard(accountBook);
 
     String[] mainMenus = new String[] {"등록", "조회", "삭제", "수정", "도움말", "종료"};
     String[][] subMenus = {
-        {"일 단위 To-do list", "주 단위 To-do list", "월 단위 To-do list", "올해 목표"},
-        {"ㅋ", "가계부 내역 조회", "카테고리별 내역 조회"},
+        {"일 단위 To-do list", "주 단위 To-do list", "월 단위 To-do list", "올해 목표", "동기부여"},
+        {"일 단위 To-do list 조회", "주 단위 To-do list", "월 단위 To-do list", "올해 목표 조회", "동기부여"},
         {"예산 삭제", "가계부 내역 삭제"},
         {"예산 설정", "수입 수정", "지출 수정"}
     };

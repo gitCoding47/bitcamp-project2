@@ -1,8 +1,8 @@
 package bitcamp.project2.command;
 
-import bitcamp.project1.util.Prompt;
-import bitcamp.project1.vo.AccountBook;
-import bitcamp.project1.vo.Entry;
+import bitcamp.project2.util.Prompt;
+import bitcamp.project2.vo.AccountBook;
+import bitcamp.project2.vo.Entry;
 
 public class DeleteBoard {
 
