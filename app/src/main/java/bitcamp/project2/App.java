@@ -28,7 +28,7 @@ public class App {
     public static void main(String[] args) {
         GodLifeTitleScreen.showTitleScreen();
         GodLifeTitleScreen.waitForEnter();
-        System.out.println(GodLifeTitleScreen.GREEN + "가계부 프로그램이 시작되었습니다." + GodLifeTitleScreen.RESET);
+        System.out.println(GodLifeTitleScreen.GREEN + "To-do List 프로그램이 시작되었습니다." + GodLifeTitleScreen.RESET);
 
         new App().execute();
     }
