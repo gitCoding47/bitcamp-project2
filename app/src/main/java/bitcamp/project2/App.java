@@ -1,29 +1,27 @@
 package bitcamp.project2;
 
- import bitcamp.project2.command.AppendBoard;
-import bitcamp.project2.command.ChangeBoard;
-import bitcamp.project2.command.DeleteBoard;
-import bitcamp.project2.command.ViewBoard;
+import bitcamp.project2.command.AppendToDo;
+import bitcamp.project2.command.ChangeToDo;
+import bitcamp.project2.command.DeleteToDo;
+import bitcamp.project2.command.ViewToDo;
 import bitcamp.project2.util.Prompt;
-import bitcamp.project2.vo.AccountBook;
+import bitcamp.project2.vo.ToDoList;
 
 public class App {
 
-    private final AccountBook accountBook = new AccountBook();
-
-    AppendBoard appendBoard = new AppendBoard(accountBook);
-    ViewBoard viewBoard = new ViewBoard(accountBook);
-    DeleteBoard deleteBoard = new DeleteBoard(accountBook);
-    ChangeBoard changeBoard = new ChangeBoard(accountBook);
-
     String[] mainMenus = new String[] {"등록", "조회", "삭제", "수정", "도움말", "종료"};
     String[][] subMenus = {
-        {"일 단위 To-do list", "주 단위 To-do list", "월 단위 To-do list", "올해 목표", "동기부여"},
-        {"일 단위 To-do list 조회", "주 단위 To-do list", "월 단위 To-do list", "올해 목표 조회", "동기부여"},
-        {"일정 삭제", "올해 목표 삭제"},
-        {"일정 수정", "올해 목표 수정"}
+        {"금일 To-do list", "내일 To-do list", "금주 To-do list", "이번 달 To-do list"},
+        {"금일 To-do list 조회", "내일 To-do list 조회", "금주 To-do list 조회", "이번 달 To-do list 조회"},
+        {"금일 To-do list 삭제", "내일 To-do list 삭제", "금주 To-do list 삭제", "이번 달 To-do list 삭제"},
+        {"금일 To-do list 수정", "내일 To-do list 수정", "금주 To-do list 수정", "이번 달 To-do list 수정"},
     };
 
+    ToDoList toDoList = new ToDoList();
+    AppendToDo appendToDo = new AppendToDo(toDoList);
+    ViewToDo viewToDo = new ViewToDo(toDoList);
+    DeleteToDo deleteToDo = new DeleteToDo(toDoList);
+    ChangeToDo changeToDo = new ChangeToDo(toDoList);
 
     public static void main(String[] args) {
         GodLifeTitleScreen.showTitleScreen();
@@ -37,7 +35,7 @@ public class App {
         printMenu();
         while (true) {
             try {
-                String command = Prompt.input("메인>");
+                String command = Prompt.inputString("메인>");
                 if (command.equals("menu")) {
                     printMenu();
                 } else {
@@ -83,7 +81,6 @@ public class App {
         }
 
         System.out.println(boldAnsi + line + resetAnsi);
-
     }
 
     void printSubMenu(String menuTitle, String[] menus) {
@@ -105,7 +102,7 @@ public class App {
     void processMenu(String menuTitle, String[] menus) {
         printSubMenu(menuTitle, menus);
         while (true) {
-            String command = Prompt.input(String.format("메인/%s>", menuTitle));
+            String command = Prompt.inputString(String.format("메인/%s>", menuTitle));
             if (command.equals("menu")) {
                 printSubMenu(menuTitle, menus);
                 continue;
@@ -121,16 +118,16 @@ public class App {
                 } else {
                     switch (menuTitle) {
                         case "등록":
-                            appendBoard.append(subMenuTitle);
+                            appendToDo.append(subMenuTitle);
                             break;
                         case "조회":
-                            viewBoard.view(subMenuTitle);
+                            viewToDo.view(subMenuTitle);
                             break;
                         case "삭제":
-                            deleteBoard.delete(subMenuTitle);
+                            deleteToDo.delete(subMenuTitle);
                             break;
                         case "수정":
-                            changeBoard.change(subMenuTitle);
+                            changeToDo.change(subMenuTitle);
                             break;
                         default:
                             System.out.printf("%s 메뉴의 명령을 처리할 수 없습니다.\n", menuTitle);
@@ -145,13 +142,13 @@ public class App {
     void showHelp() {
         System.out.println("\033[1m");
         System.out.println("Help Menu:");
-        System.out.println("1. 등록: 월 예산 설정 및 새로운 수입 또는 지출 기록을 등록할 수 있습니다.\n");
-        System.out.println("2. 조회: 남은 예산 조회 및 가계부 내역 조회를 할 수 있습니다.\n");
-        System.out.println("3. 삭제: 등록된 예산 삭제 및 가계부 내역을 삭제할 수 있습니다.\n");
-        System.out.println("4. 수정: 예산 재설정, 등록된 수입 및 지출 내용을 수정할 수 있습니다.\n");
-        System.out.println("5. 도움말\n");
+        System.out.println("1. 등록: 금일, 내일, 금주 또는 이번 달의 To-do 항목을 등록할 수 있습니다.\n");
+        System.out.println("2. 조회: 금일, 내일, 금주 또는 이번 달의 To-do 항목을 조회할 수 있습니다.\n");
+        System.out.println("3. 삭제: 금일, 내일, 금주 또는 이번 달의 To-do 항목을 삭제할 수 있습니다.\n");
+        System.out.println("4. 수정: 금일, 내일, 금주 또는 이번 달의 To-do 항목을 수정할 수 있습니다.\n");
+        System.out.println("5. 도움말: 사용법을 안내합니다.\n");
         System.out.println("6. 종료: 애플리케이션을 종료합니다.\n");
-        System.out.println("메뉴 옵션을 다시 보고 싶으시면 menu를 입력해주세요.");
+        System.out.println("메뉴 옵션을 다시 보고 싶으시면 'menu'를 입력해주세요.");
         System.out.println("\033[0m");
     }
 }
